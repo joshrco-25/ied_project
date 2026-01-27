@@ -1,9 +1,9 @@
 /*The program show how to program the motor to turn left*/
 
-#define motor_board_input_pin_IN2 6      //Connect to Arduino pin 6
-#define motor_board_input_pin_IN1 9          //Connect to Arduino pin 9
-#define motor_board_input_pin_IN4 3      //Connect to Arduino pin 3
-#define motor_board_input_pin_IN3 5          //Connect to Arduino pin 5
+#define motor_board_input_pin_IN2 6     //RIGHT BLACK
+#define motor_board_input_pin_IN1 9     //RIGHT RED
+#define motor_board_input_pin_IN4 3     //LEFT RED
+#define motor_board_input_pin_IN3 5     //LEFT BLACK
 
 #define TrigPin1 11   // U/S1 Trig connected to pin 11
 #define EchoPin1 10   // U/S1 Echo connected to pin 10
