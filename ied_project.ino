@@ -1,7 +1,10 @@
 #include <Servo.h>    // Import the Servo library to control the servo
-#define speakerPin A1
+#define speakerPin 4
 #define TrigPin1 11   // U/S1 Trig connected to pin 11
 #define EchoPin1 10   // U/S1 Echo connected to pin 10
+
+#define IR1Pin  A0   // A0 input pin for IR sensor signal
+int IR1_Val = 0;     // to store IR sensor 1 signal value
 
 Servo servo;          // Initialise the servo object to control the servo
 
@@ -16,7 +19,7 @@ void setup() {
 
   pinMode(speakerPin, OUTPUT);
 
-  servo.attach(A0);    // Tell the servo object that we've connected to pin 8
+  servo.attach(A1);    // Tell the servo object that we've connected to pin 8
   servo.write(0);     // Helps to adjust the initial position
   delay(40);  
 }
@@ -30,14 +33,14 @@ void turn(){
   for (pos = 0; pos <= 180; pos++) {
     servo.write(pos);  // Set the position of the servo
     us();
-    obsCheck();
+    pathCheck();
     delay(5);         // Wait for 10ms for the servo to process the command
   }
   // // Make the pos variabele go from 180 to 0
   for (pos = 180; pos >= 0; pos--) {
     servo.write(pos);  // Set the position of the servo
     us();
-    obsCheck();
+    pathCheck();
     delay(5);         // Wait for 10ms for the servo to process the command
   }
 
@@ -72,26 +75,52 @@ void us(){
   if(Distance < 50){
     Serial.println("Too close");
   }
-  delayMicroseconds(500);
+  delay(5);
+
+  us_buzz();
 }
 
 //detects obstacles with buzzer
-void obsCheck(){
-  if(dist < 50){
-      digitalWrite(speakerPin, HIGH);
-      delayMicroseconds(1915);
-      digitalWrite(speakerPin, LOW);
-      delayMicroseconds(1000);
-      if(dist < 15){
-        digitalWrite(speakerPin, HIGH);
-        delayMicroseconds(224);
-        digitalWrite(speakerPin, LOW);
-        delayMicroseconds(224);
-      }
+void us_buzz(){
+  if(dist < 10){
+    for(int freq = 500; freq <= 1000; freq += 10){
+      tone(speakerPin, freq);
+      delay(5);
+    }
+  }
+  else{
+    noTone(speakerPin);
   }
 }
 
 
+//check for path / infrared
+void pathCheck(){
+    IR1_Val = analogRead(IR1Pin); // Reading and storing IR sensor 1 signal value
+    Serial.print("Input Value:");
+    Serial.print(IR1_Val);       // Printing IR sensor 1 signal value
+    Serial.print("\n");            // moving to new line
+    delay(5);
+    ir_buzz();     
+}
+
+
+//will make sound if no path detected
+void ir_buzz(){
+  if(IR1_Val < 40){
+    for(int freq = 1000; freq <= 2000; freq += 10){
+      tone(speakerPin, freq);
+      delay(2);
+    }
+    for(int freq = 2000; freq >= 1000; freq -= 10){
+      tone(speakerPin, freq);
+      delay(2);
+    }
+  }
+  else{
+    noTone(speakerPin);
+  }
+}
 
 
 
