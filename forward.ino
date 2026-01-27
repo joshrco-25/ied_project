@@ -25,7 +25,6 @@ void setup()
 void loop() {
   us();
   forward();
-  // stop();
 }
 
 void us(){
@@ -49,18 +48,17 @@ void us(){
     Serial.print("Distance = ");
     Serial.print(Distance);
     Serial.println(" cm");
-    delay(500);
+    delay(20);
 }
 
 void forward()
 {
-  
   if(dist > 40){
     digitalWrite(motor_board_input_pin_IN2, HIGH);
-    analogWrite(motor_board_input_pin_IN1, 90);
+    analogWrite(motor_board_input_pin_IN1, 175);
     
     digitalWrite(motor_board_input_pin_IN3, HIGH);
-    analogWrite(motor_board_input_pin_IN4, 90);
+    analogWrite(motor_board_input_pin_IN4, 175);
   } 
   else{
     digitalWrite(motor_board_input_pin_IN2, HIGH);
@@ -70,14 +68,3 @@ void forward()
     analogWrite(motor_board_input_pin_IN4, 255);
   }
 }
-
-// void stop(){
-//   if(dist <= 40){
-//     delay(200);
-//     digitalWrite(motor_board_input_pin_IN2, HIGH);
-//     analogWrite(motor_board_input_pin_IN1, 255);
-
-//     digitalWrite(motor_board_input_pin_IN3, HIGH);
-//     analogWrite(motor_board_input_pin_IN4, 255);
-//   }
-// }
