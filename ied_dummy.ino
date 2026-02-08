@@ -26,6 +26,7 @@ void setup()
   //motor
   pinMode(motor_board_input_pin_IN2, OUTPUT); 
   pinMode(motor_board_input_pin_IN1, OUTPUT); 
+  
   pinMode(motor_board_input_pin_IN4, OUTPUT); 
   pinMode(motor_board_input_pin_IN3, OUTPUT);
 
