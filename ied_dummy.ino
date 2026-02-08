@@ -4,6 +4,7 @@
 
 #define motor_board_input_pin_IN2 6     //RIGHT BLACK
 #define motor_board_input_pin_IN1 9     //RIGHT RED
+
 #define motor_board_input_pin_IN4 3     //LEFT RED
 #define motor_board_input_pin_IN3 5     //LEFT BLACK
 
