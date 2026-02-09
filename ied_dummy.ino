@@ -2,11 +2,11 @@
 
 
 
-#define motor_board_input_pin_IN2 6     //RIGHT
-#define motor_board_input_pin_IN1 9     //RIGHT 
+#define motor_board_input_pin_IN2 6     //RIGHT BLACK
+#define motor_board_input_pin_IN1 9     //RIGHT RED
 
-#define motor_board_input_pin_IN4 3     //LEFT
-#define motor_board_input_pin_IN3 5     //LEFT
+#define motor_board_input_pin_IN4 3     //LEFT RED
+#define motor_board_input_pin_IN3 5     //LEFT BLACK
 
 #define leftIR A0
 #define rightIR A1
@@ -63,15 +63,26 @@ void movement()
 {
   //forward
   if(left_val < 40 && right_val < 40){
-    digitalWrite(motor_board_input_pin_IN2, LOW);
-    analogWrite(motor_board_input_pin_IN1, 10);
+    analogWrite(motor_board_input_pin_IN2, 100);
+    digitalWrite(motor_board_input_pin_IN1, LOW);
     
     digitalWrite(motor_board_input_pin_IN4, LOW);
-    analogWrite(motor_board_input_pin_IN3, 10);
+    analogWrite(motor_board_input_pin_IN3, 100);
   } 
 
   //left
   if(left_val < 40 && right_val > 800){
+    digitalWrite(motor_board_input_pin_IN2, LOW);
+    analogWrite(motor_board_input_pin_IN1, 50);
+    
+    digitalWrite(motor_board_input_pin_IN4, HIGH);
+    analogWrite(motor_board_input_pin_IN3, HIGH);
+
+
+  } 
+
+  //right
+  if(left_val > 800 && right_val < 40){
     digitalWrite(motor_board_input_pin_IN2, HIGH);
     analogWrite(motor_board_input_pin_IN1, HIGH);
     
@@ -79,22 +90,13 @@ void movement()
     analogWrite(motor_board_input_pin_IN3, 50);
   } 
 
-  //right
-  if(left_val > 800 && right_val < 40){
-    digitalWrite(motor_board_input_pin_IN2, LOW);
-    analogWrite(motor_board_input_pin_IN1, 50);
-    
-    digitalWrite(motor_board_input_pin_IN4, HIGH);
-    analogWrite(motor_board_input_pin_IN3, HIGH);
-  } 
-
   //backwards
   if(left_val > 800 && right_val > 800){
     digitalWrite(motor_board_input_pin_IN2, LOW);
     analogWrite(motor_board_input_pin_IN1, 150);
 
-    digitalWrite(motor_board_input_pin_IN4, LOW);
-    analogWrite(motor_board_input_pin_IN3, 50);
+    analogWrite(motor_board_input_pin_IN4, 150);
+    digitalWrite(motor_board_input_pin_IN3, LOW);
   } 
 
   us();
