@@ -2,11 +2,11 @@
 
 
 
-#define motor_board_input_pin_IN2 6     //RIGHT BLACK
-#define motor_board_input_pin_IN1 9     //RIGHT RED
+#define motor_board_input_pin_IN2 6     //RIGHT
+#define motor_board_input_pin_IN1 9     //RIGHT 
 
-#define motor_board_input_pin_IN4 3     //LEFT RED
-#define motor_board_input_pin_IN3 5     //LEFT BLACK
+#define motor_board_input_pin_IN4 3     //LEFT
+#define motor_board_input_pin_IN3 5     //LEFT
 
 #define leftIR A0
 #define rightIR A1
@@ -41,8 +41,6 @@ void setup()
 
 void loop() {
   pathCheck();
-  movement();
-  us();
 }
 
 void pathCheck(){
@@ -56,7 +54,9 @@ void pathCheck(){
   Serial.print(right_val);       // Printing IR sensor 1 signal value
   Serial.print("\n");            // moving to new line
 
-  delay(20);     
+  delay(10);     
+
+  movement();
 }
 
 void movement()
@@ -64,10 +64,10 @@ void movement()
   //forward
   if(left_val < 40 && right_val < 40){
     digitalWrite(motor_board_input_pin_IN2, LOW);
-    analogWrite(motor_board_input_pin_IN1, 20);
+    analogWrite(motor_board_input_pin_IN1, 10);
     
-    digitalWrite(motor_board_input_pin_IN3, 20);
-    analogWrite(motor_board_input_pin_IN4, LOW);
+    digitalWrite(motor_board_input_pin_IN4, LOW);
+    analogWrite(motor_board_input_pin_IN3, 10);
   } 
 
   //left
@@ -75,29 +75,29 @@ void movement()
     digitalWrite(motor_board_input_pin_IN2, HIGH);
     analogWrite(motor_board_input_pin_IN1, HIGH);
     
-    digitalWrite(motor_board_input_pin_IN3, 10);
-    analogWrite(motor_board_input_pin_IN4, LOW);
+    digitalWrite(motor_board_input_pin_IN4, LOW);
+    analogWrite(motor_board_input_pin_IN3, 50);
   } 
 
   //right
   if(left_val > 800 && right_val < 40){
     digitalWrite(motor_board_input_pin_IN2, LOW);
-    analogWrite(motor_board_input_pin_IN1, 10);
+    analogWrite(motor_board_input_pin_IN1, 50);
     
-    digitalWrite(motor_board_input_pin_IN3, HIGH);
-    analogWrite(motor_board_input_pin_IN4, HIGH);
+    digitalWrite(motor_board_input_pin_IN4, HIGH);
+    analogWrite(motor_board_input_pin_IN3, HIGH);
   } 
 
   //backwards
   if(left_val > 800 && right_val > 800){
     digitalWrite(motor_board_input_pin_IN2, LOW);
-    analogWrite(motor_board_input_pin_IN1, 50);
+    analogWrite(motor_board_input_pin_IN1, 150);
 
-    digitalWrite(motor_board_input_pin_IN3, 10);
-    analogWrite(motor_board_input_pin_IN4, LOW);
-
-    delay(200);
+    digitalWrite(motor_board_input_pin_IN4, LOW);
+    analogWrite(motor_board_input_pin_IN3, 50);
   } 
+
+  us();
 }
 
 //ultrasound sensing code
